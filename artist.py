@@ -27,10 +27,12 @@ class Artist:
             self.t.left(234)
             self.t.forward(size)
 
-    def polygon(self, size = 120):
-         for i in range(6):
-            self.t.right(60)
-            self.t.forward(size)
+    def polygon(self):
+        s = int(input("How many sides for the polygon?"))
+        l = int(input("How many pixels per side?"))
+        for i in range (s):
+            self.t.right(360/s)
+            self.t.forward(l)
 
     def star(self, size = 100):
          for i in range(5):
@@ -58,9 +60,9 @@ def main():
     art.triangle()
     art.move(150,200) 
 #Draw circle
-    art.circle(200)
+    #art.circle(200)
     art.move(-150, 200)
-#Draw 2 squares
+#Draw# 2 squares
     art.square()
     art.move(-60, 250)
     art.square(100)
@@ -68,8 +70,8 @@ def main():
     art.move(0,100)
     art.star(50)
 #Draw polygon
-    art.move(50, -130)
-    art.polygon(50)
+    art.move(70, -100)
+    art.polygon()
 #Draw zigzag
     art.move(10, -100)
     art.zigzag()

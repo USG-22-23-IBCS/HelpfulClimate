@@ -8,6 +8,21 @@ class House:
     def getRating(self):
         return self.rating
 
+def greedyPath(m, num):
+    bestHouses = []
+
+    for i in range(len(bestHouses)):
+        p = []
+
+        #keeping track of value of path
+        #picking next best house to start with
+
+        start = bestHouses[i]
+        x = start[0]
+        y = start[1]
+        
+        for i in range(num - 1):
+
 def randPath(m, num):
     #create an empty path
     p = []
@@ -27,20 +42,39 @@ def randPath(m, num):
 
         #add neighbors to the path at a randomly chosen direction
         #keep track of whether we get stuck. If we get stuck, break
-        for i in range(num - 1):
 
             neighbors = [[x, y-1], [x, y+1], [x-1, y], [x+1, y]]
+            bad = []
 
-            stuck = True
             for n in neighbors:
-                if (n[0]<5) and (n[0]>-1):
-                   if (n[1]<5) and (n[1]>-1):
-                       if n not in p:
-                           stuck = False
-            if stuck:
+                if (n[0] > 4) or (n[0] < 0):
+                    bad.append(n)
+                elif (n[1] > 4) or (n[1]<0):
+                    bad.append(n)
+                elif n in p:
+                    bad.append(n)
+            for b in bad:
+                neighbors.remove(b)
+            'slay here'
+            if len(neighbors) == 0:
                 break
+
+            nextHouse = random.choice(neighbors)
+            p.append(nextHouse)
+            x = nextHouse[0]
+            y = nextHouse[1]
+            pVal = pVal + m[x][y]
             
-            while True:
+            #stuck = True
+            #for n in neighbors:
+                #if (n[0]<5) and (n[0]>-1):
+                   #if (n[1]<5) and (n[1]>-1):
+                       #if n not in p:
+                           #stuck = False
+            #if stuck:
+                #break
+            
+            '''while True:
                 #choose a random direction and attempt to add the neighbor
                 neighbor = random.choice(neighbors)
                 #do not add the neighbor to the path if it is outside of the 5x5
@@ -53,7 +87,7 @@ def randPath(m, num):
                             x = neighbor[0]
                             y = neighbor[1]
                             pVal = pVal + m[x][y]
-                            break
+                            break'''
 
                 
         return pVal, p
@@ -71,8 +105,20 @@ def main():
 
     num = int(input("How many houses?\n"))
 
-    p, pVal = randPath(m, num)
-    print (p, pVal)
+    '''Random Path Call'''
+    total = 0
+    for i in range(5):
+        for j in range(5):
+            total = total + m[i][j]
+    average = total/25
+    
+    pVal, p = randPath(m, num)
+    while (average > pVal/num):
+        pVal, p = randPath(m, num)
+    
+    print(p, pVal)
+    print("Random path average value: " + str(pVal/num))
+    print("Neighborhood is: " +str(average))
                        
 
     #calculate the average rating of a house in the neighborhood
@@ -88,3 +134,23 @@ def main():
 
 if __name__ == "__main__":
     main()
+'''
+--------------------
+Greedy Path writeup
+--------------------
+1. Create list of highest-ranking houses in sorted order
+#for loop as opposed to while loop
+2. Keep track of pVal
+#same as random path
+3. Pick next house from bestHouse list
+#different
+4. Check to see bad neighbors and if we're stuck
+#same as random path
+5. Pick best neighbor from all tht good ones (items in neighbor list)
+#different
+6. Add neighbor to path and update x, y, pVal
+#same as random path
+7. if len(p) == num:
+    return pVal, p
+
+'''

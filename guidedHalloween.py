@@ -18,6 +18,10 @@ def randPath(m, num):
     while (len(p) < num):
         p = []
 
+        x = random.randint(0, 4)
+        y = random.randint(0, 4)
+        pVal = m[x][y]
+        p.append([x, y])
         #keep track of the value of the path
         #choose a random coordinate to start at
 
@@ -27,39 +31,33 @@ def randPath(m, num):
 
             neighbors = [[x, y-1], [x, y+1], [x-1, y], [x+1, y]]
 
+            stuck = True
+            for n in neighbors:
+                if (n[0]<5) and (n[0]>-1):
+                   if (n[1]<5) and (n[1]>-1):
+                       if n not in p:
+                           stuck = False
+            if stuck:
+                break
+            
             while True:
                 #choose a random direction and attempt to add the neighbor
                 neighbor = random.choice(neighbors)
                 #do not add the neighbor to the path if it is outside of the 5x5
                 #or if the neighbor is already in the path
                 #break the while loop if it was a successful addition or if stuck
-                p.append(neighbor)
-                x = neighbor[0]
-                y = neighbor[1]
-                if (neighbor [1]<5) and (neighbor[1]>-1)
-                    if (neighbor[0]<5) and (neighbor[0]>-1)
+                if (neighbor [1]<5) and (neighbor[1]>-1):
+                    if (neighbor[0]<5) and (neighbor[0]>-1):
                         if neighbor not in p:
-                            stuck = False
+                            p.append(neighbor)
+                            x = neighbor[0]
+                            y = neighbor[1]
+                            pVal = pVal + m[x][y]
+                            break
 
-                stuck = True
-                for n in neighbors:
-                    if (n[0]<5) and (n[0]>-1)
-                       if (n[1]<5) and (n[1]>-1)
-                           in n not in p:
-                               stuck = False
-                               if stuck:
-                                   break
                 
-    return pVal, p
+        return pVal, p
 
-    x = random.randint(0,4)
-    y = random.randint(0,4)
-
-    m[x][y]
-    
-    pVal = m[x][y]
-    p.append([x],[y])
-                
   
 def main():
     m = [[], [], [], [], []]
@@ -72,6 +70,10 @@ def main():
         print(m[0][i], m[1][i], m[2][i], m[3][i], m[4][i]) 
 
     num = int(input("How many houses?\n"))
+
+    p, pVal = randPath(m, num)
+    print (p, pVal)
+                       
 
     #calculate the average rating of a house in the neighborhood
 

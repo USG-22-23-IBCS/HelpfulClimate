@@ -2,7 +2,7 @@
 class GroceryStore:
 
     def __init__(self):
-        self.manager = "Zedd"
+        self.manager = "Hey there, I'm Zedd! See you next time. Now get out we're closing!!!!!"
         self.stock = {"-Drinks-" : 0,
                       "Cherry soda" : 1.25,
                       "Cherry kombucha" : 3.25,
@@ -18,6 +18,8 @@ class GroceryStore:
                       "-Potato-" : 0,
                       "Baked potato" : 5.50,
                       "French fries" : 3.50}
+    def getManager(self):
+        return self.manager
 
 def main():
 
@@ -34,10 +36,12 @@ def main():
         if user == "1":
             for item in storeList:
                 print(item)
-            print("To browse aisles at any point, type 2, and to return to the list type 1 .")
+            print("To browse aisles at any point, type 2, and to print the list type 1 .")
             
             print("To check out at any point, type check out !")
         if user == "2":
+            print("Great! Please select an aisle: 1a Drinks 2a Chips 3a Salad 4a Yogurt 5a Potatoes")
+            user = input("")
             if user == "1a":
                 print(store.stock.get("Cherry soda"))
                 print(store.stock.get("Cherry kombucha"))
@@ -91,7 +95,9 @@ def main():
                     cost = cost + 1.50
                 print("Added to your cart! Current total is:")
                 print(cost)
-                print("To browse or revisit an aisle, type 2")
+                print("~To browse or revisit an aisle, type 2")
+                print("~To view store stock, type 1")
+                print("~To make your purchase, type check out")
             if user == "5a":
                 print(store.stock.get("Baked potato"))
                 print(store.stock.get("French fries"))
@@ -103,16 +109,21 @@ def main():
                     cost = cost + 3.50
                 print("Added to your cart! Current total is:")
                 print(cost)
-                print("To browse or revisit an aisle, type 2")
-            
+                print("~To browse or revisit an aisle, type 2")
+                print("~To view store stock, type 1")
+                print("~To make your purchase, type check out")
         user = input("")
         if user == "check out":
             print(cost)
+            print("Thanks for shopping with us today! Say hi to our store manager! (type hi)")
+            user = input("")
+            Zedd = store.getManager()
+            if user == "hi":
+                print(Zedd)
+
             break
 
-        
 
-        
       
 if __name__ == "__main__":
     main()
